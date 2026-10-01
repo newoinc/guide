@@ -24,7 +24,7 @@
     body { background-color: var(--bg-color); color: var(--text-main); padding: 16px 12px 40px; display: flex; justify-content: center; min-height: 100vh; }
     .container { width: 100%; max-width: 480px; }
     
-    /* Language Selector Bar */
+    /* 多國語言切換列 */
     .lang-bar { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 12px; }
     .lang-btn { font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border-color); background: #fff; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
     .lang-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
@@ -84,12 +84,12 @@
       <button class="lang-btn" onclick="changeLang('ko', event)">한국어</button>
     </div>
 
-    <!-- 頂部標題 -->
+    <!-- 頂部動態標題 -->
     <div class="header">
-      <h1 id="title">ドミールケー</h1>
+      <h1 id="title">Welcome Guide</h1>
     </div>
 
-    <!-- 1. 周邊資訊區塊 (最上方) -->
+    <!-- 1. 周邊資訊區塊 (置頂) -->
     <div class="card">
       <div class="card-title">📍 <span id="t-around">宿泊施設周辺</span></div>
       
@@ -169,13 +169,13 @@
     <!-- 頁尾地址區塊 -->
     <div class="footer">
       <div class="footer-title">LOCATION ADDRESS</div>
-      <div class="footer-address" id="address">載入中...</div>
+      <div class="footer-address" id="address">Address Loading...</div>
     </div>
 
   </div>
 
   <script>
-    // 1. 多國語言對照表
+    // 1. 多國語言字典
     const i18n = {
       ja: {
         around: "宿泊施設周辺",
@@ -199,7 +199,7 @@
         pharmacy: "Pharmacy",
         supermarket: "Supermarket / Store",
         taxi: "Taxi Dispatch",
-        dl: "▶︎︎ Download App",
+        dl: "▶ Download App",
         cp: "▶︎ Promo Code",
         copy: "Copy",
         copied: "Copied!",
@@ -214,7 +214,7 @@
         pharmacy: "藥局・藥妝",
         supermarket: "超市・便利商店",
         taxi: "叫計程車",
-        dl: "▶︎︎ 下載應用程式",
+        dl: "▶ 下載應用程式",
         cp: "▶︎ 優惠碼",
         copy: "複製",
         copied: "已複製！",
@@ -241,7 +241,7 @@
 
     let currentLang = 'ja';
 
-    // 2. 切換語言動態修改文字
+    // 2. 切換語言控制
     function changeLang(lang, ev) {
       currentLang = lang;
       const t = i18n[lang];
@@ -275,23 +275,23 @@
       document.getElementById('t-taxi-notice-2').innerText = t.taxiNotice;
     }
 
-    // 3. 讀取 URL 變數動態更新標題與地址
+    // 3. 讀取 URL 變數（預設通用文字，不寫死特定房間名稱）
     const params = new URLSearchParams(window.location.search);
-    const title = params.get('title') || 'ドミールケー';
-    const address = params.get('address') || '東京都板橋区赤塚2-9-11-103';
+    const title = params.get('title') || 'Welcome Guide';
+    const address = params.get('address') || 'Please set location address';
 
     document.getElementById('title').innerText = title;
     document.getElementById('address').innerText = address;
     document.getElementById('map').src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
-    // 4. 自動生成 Google 地圖搜尋連結
+    // 4. 動態地圖搜尋網址
     const encodedAddress = encodeURIComponent(address);
     document.getElementById('btn-restaurant').href = `https://www.google.com/maps/search/${encodedAddress}+レストラン`;
     document.getElementById('btn-cafe').href = `https://www.google.com/maps/search/${encodedAddress}+カフェ`;
     document.getElementById('btn-pharmacy').href = `https://www.google.com/maps/search/${encodedAddress}+薬局`;
     document.getElementById('btn-supermarket').href = `https://www.google.com/maps/search/${encodedAddress}+スーパー+コンビニ`;
 
-    // 5. 一鍵複製優惠碼功能
+    // 5. 複製優惠碼
     function copyCode(elementId) {
       const codeText = document.getElementById(elementId).innerText;
       navigator.clipboard.writeText(codeText).then(() => {
