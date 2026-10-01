@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f4f5f7;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-sub: #64748b;
+      --primary: #1e3a8a;        /* 深靛藍 高級主色 */
+      --primary-hover: #1e40af;
+      --primary-light: #eff6ff;
+      --accent: #d97706;         /* 莫蘭迪金/琥珀色 */
+      --border-color: #e2e8f0;
+      --coupon-bg: #f8fafc;
+    }
+    * { box-sizing: border-box; font-family: 'Noto Sans JP', 'Plus Jakarta Sans', sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg-color); color: var(--text-main); padding: 16px 12px 40px; display: flex; justify-content: center; min-height: 100vh; }
+    .container { width: 100%; max-width: 480px; }
+    
+    /* Language Selector Bar */
+    .lang-bar { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 12px; }
+    .lang-btn { font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border-color); background: #fff; color: var(--text-sub); cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Header */
+    .header { text-align: center; padding: 12px 0 20px; }
+    h1 { font-size: 26px; font-weight: 700; color: var(--primary); margin-top: 4px; }
+
+    /* Section Card */
+    .card { background: var(--card-bg); border-radius: 18px; padding: 20px; box-shadow: 0 4px 20px rgba(30,58,138,0.04); margin-bottom: 18px; border: 1px solid var(--border-color); }
+    .card-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid var(--primary-light); padding-bottom: 10px; color: var(--primary); }
+
+    /* Item Sub-block */
+    .item-block { margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px dashed var(--border-color); }
+    .item-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .item-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+    
+    /* Buttons & Links */
+    .btn-group { display: flex; gap: 8px; margin: 10px 0; }
+    .btn-app { flex: 1; text-align: center; padding: 10px; background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 13px; border-radius: 10px; text-decoration: none; transition: 0.2s; border: 1px solid #dbeafe; }
+    .btn-app:active { background: #dbeafe; }
+    
+    /* Coupon Code Box */
+    .coupon-box { background: var(--coupon-bg); padding: 12px; border-radius: 10px; margin: 10px 0; border: 1px solid #cbd5e1; }
+    .coupon-title { font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px; }
+    .coupon-code-row { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-color); }
+    .coupon-code { font-family: monospace; font-size: 15px; font-weight: 700; color: var(--primary); letter-spacing: 1px; }
+    .copy-btn { font-size: 11px; font-weight: 700; background: var(--primary); color: #fff; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+    .copy-btn:active { background: var(--primary-hover); }
+    .coupon-desc { font-size: 12px; font-weight: 700; color: #b45309; margin-top: 6px; }
+
+    /* Notice Text */
+    .notice { font-size: 11px; color: var(--text-sub); line-height: 1.5; margin-top: 8px; background: #f8fafc; padding: 10px; border-radius: 8px; border-left: 3px solid #94a3b8; }
+
+    /* Map & Location Buttons */
+    .map-wrapper { width: 100%; height: 210px; border-radius: 14px; overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color); }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn-map { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 13px 8px; background: #fff; border: 1px solid var(--border-color); border-radius: 10px; text-decoration: none; color: var(--text-main); font-size: 13px; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.2s; }
+    .btn-map:active { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+
+    /* Footer Address */
+    .footer { text-align: center; background: #fff; padding: 20px; border-radius: 18px; border: 1px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+    .footer-title { font-size: 11px; font-weight: 700; color: var(--text-sub); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .footer-address { font-size: 14px; font-weight: 700; color: var(--primary); line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- 多國語言切換列 -->
+    <div class="lang-bar">
+      <button class="lang-btn active" onclick="changeLang('ja', event)">JP</button>
+      <button class="lang-btn" onclick="changeLang('en', event)">EN</button>
+      <button class="lang-btn" onclick="changeLang('zh', event)">繁中</button>
+      <button class="lang-btn" onclick="changeLang('ko', event)">한국어</button>
+    </div>
+
+    <!-- 頂部標題 -->
+    <div class="header">
+      <h1 id="title">ドミールケー</h1>
+    </div>
+
+    <!-- 1. 周邊資訊區塊 (最上方) -->
+    <div class="card">
+      <div class="card-title">📍 <span id="t-around">宿泊施設周辺</span></div>
+      
+      <div class="map-wrapper">
+        <iframe id="map" src="" allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <div class="grid-2">
+        <a class="btn-map" id="btn-restaurant" target="_blank">🍽 <span id="t-restaurant">レストラン</span></a>
+        <a class="btn-map" id="btn-cafe" target="_blank">☕️ <span id="t-cafe">カフェ</span></a>
+        <a class="btn-map" id="btn-pharmacy" target="_blank">💊 <span id="t-pharmacy">薬局・ドラッグ</span></a>
+        <a class="btn-map" id="btn-supermarket" target="_blank">🛒 <span id="t-supermarket">スーパー・コンビニ</span></a>
+      </div>
+    </div>
+
+    <!-- 2. TAXI 區塊 -->
+    <div class="card">
+      <div class="card-title">🚕 Taxi（<span id="t-taxi">タクシー配車</span>）</div>
+      
+      <!-- GO Taxi -->
+      <div class="item-block">
+        <div class="item-name">GO Taxi</div>
+        <div style="font-size:12px; color:var(--text-sub);" id="t-dl-1">▶︎ アプリをダウンロード</div>
+        <div class="btn-group">
+          <a class="btn-app" href="https://play.google.com/store/apps/details?id=com.dena.v2.taxi" target="_blank">Android</a>
+          <a class="btn-app" href="https://apps.apple.com/jp/app/id1254341709" target="_blank">iOS</a>
+        </div>
+        <div class="coupon-box">
+          <div class="coupon-title" id="t-cp-1">▶︎ クーポンコード</div>
+          <div class="coupon-code-row">
+            <span class="coupon-code" id="code-go">mf-2mh9dv</span>
+            <button class="copy-btn" onclick="copyCode('code-go')" id="btn-copy-1">コピー</button>
+          </div>
+          <div class="coupon-desc" id="t-go-desc">最大2000円クーポン！</div>
+        </div>
+        <div class="notice" id="t-taxi-notice-1">
+          ※日本の電話番号がなくても海外の番号で登録できますがSMS認証が必要なので、海外SIMでも受信できればご利用いただけます。
+        </div>
+      </div>
+
+      <!-- S.RIDE Taxi -->
+      <div class="item-block">
+        <div class="item-name">S.RIDE Taxi</div>
+        <div style="font-size:12px; color:var(--text-sub);" id="t-dl-2">▶︎ アプリをダウンロード</div>
+        <div class="btn-group">
+          <a class="btn-app" href="https://play.google.com/store/apps/details?id=jp.sride.taxi" target="_blank">Android</a>
+          <a class="btn-app" href="https://apps.apple.com/jp/app/id1458325928" target="_blank">iOS</a>
+        </div>
+        <div class="notice" id="t-taxi-notice-2">
+          ※日本の電話番号がなくても海外の番号で登録できますがSMS認証が必要なので、海外SIMでも受信できればご利用いただけます。
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. FOOD DELIVERY 區塊 -->
+    <div class="card">
+      <div class="card-title">🛵 Food Delivery</div>
+      
+      <div class="item-block">
+        <div class="item-name">Uber Eats</div>
+        <div style="font-size:12px; color:var(--text-sub);" id="t-dl-3">▶︎ アプリをダウンロード</div>
+        <div class="btn-group">
+          <a class="btn-app" href="https://play.google.com/store/apps/details?id=com.ubercab.eats" target="_blank">Android</a>
+          <a class="btn-app" href="https://apps.apple.com/jp/app/id1058959277" target="_blank">iOS</a>
+        </div>
+        <div class="coupon-box">
+          <div class="coupon-title" id="t-cp-2">▶︎ クーポンコード</div>
+          <div class="coupon-code-row">
+            <span class="coupon-code" id="code-uber">eats-2dlu2s</span>
+            <button class="copy-btn" onclick="copyCode('code-uber')" id="btn-copy-2">コピー</button>
+          </div>
+          <div class="coupon-desc" id="t-uber-desc">初回の注文1300円OFFクーポン！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 頁尾地址區塊 -->
+    <div class="footer">
+      <div class="footer-title">LOCATION ADDRESS</div>
+      <div class="footer-address" id="address">載入中...</div>
+    </div>
+
+  </div>
+
+  <script>
+    // 1. 多國語言對照表
+    const i18n = {
+      ja: {
+        around: "宿泊施設周辺",
+        restaurant: "レストラン",
+        cafe: "カフェ",
+        pharmacy: "薬局・ドラッグ",
+        supermarket: "スーパー・コンビニ",
+        taxi: "タクシー配車",
+        dl: "▶︎ アプリをダウンロード",
+        cp: "▶︎ クーポンコード",
+        copy: "コピー",
+        copied: "コピーしました！",
+        goDesc: "最大2000円クーポン！",
+        uberDesc: "初回の注文1300円OFFクーポン！",
+        taxiNotice: "※日本の電話番号がなくても海外の番号で登録できますがSMS認証が必要なので、海外SIMでも受信できればご利用いただけます。"
+      },
+      en: {
+        around: "Around Accommodation",
+        restaurant: "Restaurants",
+        cafe: "Cafes",
+        pharmacy: "Pharmacy",
+        supermarket: "Supermarket / Store",
+        taxi: "Taxi Dispatch",
+        dl: "▶︎︎ Download App",
+        cp: "▶︎ Promo Code",
+        copy: "Copy",
+        copied: "Copied!",
+        goDesc: "Up to ¥2,000 Coupon!",
+        uberDesc: "¥1,300 OFF First Order!",
+        taxiNotice: "※ Overseas phone numbers can be registered, but SMS authentication is required. You can use it if you can receive SMS on an overseas SIM."
+      },
+      zh: {
+        around: "住宿設施周邊",
+        restaurant: "餐廳美食",
+        cafe: "咖啡廳",
+        pharmacy: "藥局・藥妝",
+        supermarket: "超市・便利商店",
+        taxi: "叫計程車",
+        dl: "▶︎︎ 下載應用程式",
+        cp: "▶︎ 優惠碼",
+        copy: "複製",
+        copied: "已複製！",
+        goDesc: "最高折抵 2,000 日圓！",
+        uberDesc: "首購立減 1,300 日圓！",
+        taxiNotice: "※ 無日本電話號碼亦可使用海外號碼註冊，但需進行 SMS 簡訊驗證，請確認您的海外 SIM 卡能接收簡訊。"
+      },
+      ko: {
+        around: "숙소 주변 시설",
+        restaurant: "맛집・레스토랑",
+        cafe: "카페",
+        pharmacy: "약국・드럭스토어",
+        supermarket: "슈퍼・편의점",
+        taxi: "택시 호출",
+        dl: "▶︎ 앱 다운로드",
+        cp: "▶︎ 쿠폰 코드",
+        copy: "복사",
+        copied: "복사되었습니다!",
+        goDesc: "최대 2,000엔 할인 쿠폰!",
+        uberDesc: "첫 주문 1,300엔 할인 쿠폰!",
+        taxiNotice: "※ 일본 전화번호가 없어도 해외 번호로 가입 가능하나, SMS 인증이 필요하므로 해외 SIM으로 문자 수신이 가능해야 합니다."
+      }
+    };
+
+    let currentLang = 'ja';
+
+    // 2. 切換語言動態修改文字
+    function changeLang(lang, ev) {
+      currentLang = lang;
+      const t = i18n[lang];
+
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      if (ev && ev.target) {
+        ev.target.classList.add('active');
+      }
+
+      document.getElementById('t-around').innerText = t.around;
+      document.getElementById('t-restaurant').innerText = t.restaurant;
+      document.getElementById('t-cafe').innerText = t.cafe;
+      document.getElementById('t-pharmacy').innerText = t.pharmacy;
+      document.getElementById('t-supermarket').innerText = t.supermarket;
+      document.getElementById('t-taxi').innerText = t.taxi;
+      
+      document.getElementById('t-dl-1').innerText = t.dl;
+      document.getElementById('t-dl-2').innerText = t.dl;
+      document.getElementById('t-dl-3').innerText = t.dl;
+
+      document.getElementById('t-cp-1').innerText = t.cp;
+      document.getElementById('t-cp-2').innerText = t.cp;
+
+      document.getElementById('btn-copy-1').innerText = t.copy;
+      document.getElementById('btn-copy-2').innerText = t.copy;
+
+      document.getElementById('t-go-desc').innerText = t.goDesc;
+      document.getElementById('t-uber-desc').innerText = t.uberDesc;
+
+      document.getElementById('t-taxi-notice-1').innerText = t.taxiNotice;
+      document.getElementById('t-taxi-notice-2').innerText = t.taxiNotice;
+    }
+
+    // 3. 讀取 URL 變數動態更新標題與地址
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get('title') || 'ドミールケー';
+    const address = params.get('address') || '東京都板橋区赤塚2-9-11-103';
+
+    document.getElementById('title').innerText = title;
+    document.getElementById('address').innerText = address;
+    document.getElementById('map').src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+
+    // 4. 自動生成 Google 地圖搜尋連結
+    const encodedAddress = encodeURIComponent(address);
+    document.getElementById('btn-restaurant').href = `https://www.google.com/maps/search/${encodedAddress}+レストラン`;
+    document.getElementById('btn-cafe').href = `https://www.google.com/maps/search/${encodedAddress}+カフェ`;
+    document.getElementById('btn-pharmacy').href = `https://www.google.com/maps/search/${encodedAddress}+薬局`;
+    document.getElementById('btn-supermarket').href = `https://www.google.com/maps/search/${encodedAddress}+スーパー+コンビニ`;
+
+    // 5. 一鍵複製優惠碼功能
+    function copyCode(elementId) {
+      const codeText = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        alert(i18n[currentLang].copied + ': ' + codeText);
+      });
+    }
+  </script>
+
+</body>
+</html>
