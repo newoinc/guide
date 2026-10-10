@@ -114,7 +114,7 @@
         <div class="item-name">GO Taxi</div>
         <div style="font-size:12px; color:var(--text-sub);" id="t-dl-1">▶︎ アプリをダウンロード</div>
         <div class="btn-group">
-          <a class="btn-app" href="https://play.google.com/store/apps/details?id=com.dena.automotive.taxibell" target="_blank">Android</a>
+          <a class="btn-app" href="https://play.google.com/store/apps/details?id=com.dena.v2.taxi" target="_blank">Android</a>
           <a class="btn-app" href="https://apps.apple.com/jp/app/id1254341709" target="_blank">iOS</a>
         </div>
         <div class="coupon-box">
@@ -135,7 +135,7 @@
         <div class="item-name">S.RIDE Taxi</div>
         <div style="font-size:12px; color:var(--text-sub);" id="t-dl-2">▶︎ アプリをダウンロード</div>
         <div class="btn-group">
-          <a class="btn-app" href="https://play.google.com/store/apps/details?id=jp.sride.userapp" target="_blank">Android</a>
+          <a class="btn-app" href="https://play.google.com/store/apps/details?id=jp.sride.taxi" target="_blank">Android</a>
           <a class="btn-app" href="https://apps.apple.com/jp/app/id1458325928" target="_blank">iOS</a>
         </div>
         <div class="notice" id="t-taxi-notice-2">
@@ -275,7 +275,7 @@
       document.getElementById('t-taxi-notice-2').innerText = t.taxiNotice;
     }
 
-    // 3. 讀取 URL 變數（預設通用文字，不寫死特定房間名稱）
+    // 3. 讀取 URL 變數
     const params = new URLSearchParams(window.location.search);
     const title = params.get('title') || 'Welcome Guide';
     const address = params.get('address') || 'Please set location address';
@@ -284,8 +284,10 @@
     document.getElementById('address').innerText = address;
     document.getElementById('map').src = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
 
-    // 4. 動態地圖搜尋網址
-    const encodedAddress = encodeURIComponent(address);
+    // 4. 通用搜尋邏輯：只針對明確保留樓層或房間號（如 -103號、301F）進行過濾，完美兼容各類日本地址門牌
+    const cleanSearchAddress = address.replace(/(號|F|樓|\s).*/i, '');
+    const encodedAddress = encodeURIComponent(cleanSearchAddress);
+
     document.getElementById('btn-restaurant').href = `https://www.google.com/maps/search/${encodedAddress}+レストラン`;
     document.getElementById('btn-cafe').href = `https://www.google.com/maps/search/${encodedAddress}+カフェ`;
     document.getElementById('btn-pharmacy').href = `https://www.google.com/maps/search/${encodedAddress}+薬局`;
